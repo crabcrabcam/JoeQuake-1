@@ -1232,6 +1232,20 @@ static qsocket_t *_Datagram_CheckNewConnections (void)
 	}
 #endif
 
+// joe, from ProQuake: need this for linux build
+#ifndef WIN32
+unsigned _lrotl (unsigned x, int s)
+{
+	s &= 31;
+	return (x << s) | (x >> (32 - s));
+}
+unsigned _lrotr (unsigned x, int s)
+{
+	s &= 31;
+	return (x >> s) | (x << (32 - s));
+}
+#endif
+
 	// see if this guy is already connected
 	for (s = net_activeSockets ; s ; s = s->next)
 	{
